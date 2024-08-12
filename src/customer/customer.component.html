@@ -1,0 +1,50 @@
+<header>
+  <div class="header-content">
+    <h1>Food JuanDevs</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Menú</a></li>
+        <li><a href="#">Nosotros</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="customer-container">
+  <h2>Nuestro Menú</h2>
+  <div class="cart-link">
+    <a [routerLink]="['/cart']" class="cart-button">Ver Carrito</a>
+  </div>
+  <div class="products-section">
+    <div class="no-products" *ngIf="products.length === 0">
+      <p>No hay productos disponibles. Por favor, verifica más tarde.</p>
+    </div>
+    <div class="product-grid">
+      <div *ngFor="let product of products" class="product-card">
+        <div class="product-image">
+          <img [src]="product.imageUrl" alt="{{ product.name }}" />
+        </div>
+        <div class="product-details">
+          <h3>{{ product.name }}</h3>
+          <p class="product-price">Precio: ${{ product.price }}</p>
+          <p class="product-description">{{ product.description }}</p>
+          <button class="order-button" (click)="order(product)">Ordenar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <p>&copy; 2023 Comida Rápida Express. Todos los derechos reservados.</p>
+    <p>Síguenos en redes sociales:</p>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</footer>

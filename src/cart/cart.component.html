@@ -1,0 +1,20 @@
+<div class="cart-container">
+  <h2>Carrito de Compras</h2>
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    <p>No hay productos en el carrito.</p>
+  </div>
+  <div class="cart-items" *ngIf="cartItems.length > 0">
+    <ul>
+      <li *ngFor="let item of cartItems; let i = index">
+        {{ item.name }} - ${{ item.price }}
+        <button class="remove-button" (click)="removeFromCart(i)">
+          Eliminar
+        </button>
+      </li>
+    </ul>
+    <h3>Total: ${{ total }}</h3>
+    <button class="checkout-button" (click)="checkout()">
+      Realizar Pedido
+    </button>
+  </div>
+</div>

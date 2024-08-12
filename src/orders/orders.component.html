@@ -1,0 +1,81 @@
+<div class="orders-container">
+  <h2>Órdenes de Clientes</h2>
+  <div *ngIf="orders.length === 0" class="no-orders">
+    <p>No hay órdenes pendientes.</p>
+  </div>
+  <div class="orders-list" *ngIf="orders.length > 0">
+    <h3>Órdenes Pendientes</h3>
+    <div class="order-card" *ngFor="let order of orders; let i = index">
+      <div *ngIf="editingIndex !== i; else editTemplate">
+        <h4>Pedido realizado el: {{ order.date | date : "short" }}</h4>
+        <ul>
+          <li *ngFor="let product of order.products">
+            {{ product.name }} - ${{ product.price }}
+          </li>
+        </ul>
+        <h5>Total: ${{ order.total }}</h5>
+        <div class="order-actions">
+          <button class="edit-button" (click)="editOrder(i, 'orders')">
+            Editar
+          </button>
+          <button class="deliver-button" (click)="markAsDelivered(i)">
+            Marcar como Entregado
+          </button>
+          <button class="remove-button" (click)="removeOrder(i, 'orders')">
+            Eliminar
+          </button>
+        </div>
+      </div>
+      <ng-template #editTemplate>
+        <h4>Editar Pedido</h4>
+        <form (ngSubmit)="saveEdit()">
+          <ul *ngIf="editingOrder">
+            <li *ngFor="let product of editingOrder.products; let j = index">
+              <input
+                [(ngModel)]="editingOrder.products[j].name"
+                name="productName{{ j }}"
+                required
+              />
+              <input
+                type="number"
+                [(ngModel)]="editingOrder.products[j].price"
+                name="productPrice{{ j }}"
+                required
+              />
+            </li>
+          </ul>
+          <h5>Total: ${{ editingOrder?.total }}</h5>
+          <button type="submit">Guardar Cambios</button>
+          <button type="button" (click)="cancelEdit()">Cancelar</button>
+        </form>
+      </ng-template>
+    </div>
+  </div>
+
+  <div *ngIf="deliveredOrders.length > 0" class="delivered-orders">
+    <h3>Órdenes Entregadas</h3>
+    <div
+      class="order-card"
+      *ngFor="let order of deliveredOrders; let i = index"
+    >
+      <h4>Pedido entregado el: {{ order.date | date : "short" }}</h4>
+      <ul>
+        <li *ngFor="let product of order.products">
+          {{ product.name }} - ${{ product.price }}
+        </li>
+      </ul>
+      <h5>Total: ${{ order.total }}</h5>
+      <div class="order-actions">
+        <button class="edit-button" (click)="editOrder(i, 'deliveredOrders')">
+          Editar
+        </button>
+        <button
+          class="remove-button"
+          (click)="removeOrder(i, 'deliveredOrders')"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

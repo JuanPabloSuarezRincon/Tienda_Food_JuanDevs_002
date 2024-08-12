@@ -1,0 +1,22 @@
+<div class="employee-container">
+  <header class="header">
+    <h1>Food JuanDev</h1>
+    <nav>
+      <ul>
+        <li><a [routerLink]="['/']">Cerrar Sesión</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <h2>Bienvenido, Empleado</h2>
+    <div class="button-container">
+      <button class="action-button" [routerLink]="['/orders']">
+        Gestionar Órdenes
+      </button>
+      <button class="action-button" [routerLink]="['/product-management']">
+        Gestionar Productos
+      </button>
+    </div>
+  </main>
+</div>
